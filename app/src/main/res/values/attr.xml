@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="ItemLayout">
-        <attr name="labelText" format="string" />
-        <attr name="listSize" format="integer" />
-    </declare-styleable>
     <declare-styleable name="SingleLineLayout">
         <attr name="topLabelText" format="string" />
     </declare-styleable>

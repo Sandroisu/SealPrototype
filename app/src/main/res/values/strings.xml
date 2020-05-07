@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PlombApp</string>
+
+    <string-array name="seal_type">
+        <item>Пластик</item>
+        <item>Свинец</item>
+        <item>Нейлон</item>
+    </string-array>
+
+    <string-array name="seal_placement">
+        <item>Ввод в дом</item>
+        <item>Улица</item>
+        <item>Подъезд</item>
+    </string-array>
 </resources>

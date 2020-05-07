@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginBottom="30dp">
 
@@ -9,7 +10,7 @@
         android:id="@+id/sealItem_sllType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp" />
 
     <ru.alex.plombapp.SingleLineLayout
         android:id="@+id/sealItem_sllNumber"

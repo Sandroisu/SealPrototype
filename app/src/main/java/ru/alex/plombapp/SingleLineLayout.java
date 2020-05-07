@@ -5,11 +5,13 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import java.util.HashMap;
 
 public class SingleLineLayout extends ConstraintLayout {
     private Context mContext;
@@ -18,6 +20,7 @@ public class SingleLineLayout extends ConstraintLayout {
     private AutoCompleteTextView actvCurrent;
     private ImageView ivCancel;
     private ImageView ivAccept;
+    private ImageView ivDropDown;
 
     public SingleLineLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,14 +41,32 @@ public class SingleLineLayout extends ConstraintLayout {
         actvCurrent = findViewById(R.id.singleLine_actvCurrent);
         ivCancel = findViewById(R.id.singleLine_ivCancel);
         ivAccept = findViewById(R.id.singleLine_ivAccept);
+        ivDropDown = findViewById(R.id.singleLine_ivDropDown);
         tvTitle.setText(labelText);
+
+        ivDropDown.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actvCurrent.showDropDown();
+            }
+        });
+        actvCurrent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ivAccept.setVisibility(VISIBLE);
+                ivCancel.setVisibility(VISIBLE);
+                HashMap<String, Object> map = (HashMap<String, Object>)parent.getItemAtPosition(position);
+                actvCurrent.setText(String.valueOf( map.get(Names.NAME)));
+            }
+        });
         ivCancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                actvCurrent.setSelection(-1);
+                actvCurrent.setText(null);
+                ivAccept.setVisibility(GONE);
+                ivCancel.setVisibility(GONE);
             }
         });
-
     }
 
     public void setTvTitle(String title) {
@@ -56,15 +77,12 @@ public class SingleLineLayout extends ConstraintLayout {
         tvPrevious.setText(previous);
     }
 
-    public void setActvCurrent(String current) {
-        actvCurrent.setText(current);
+    public void setActvAdapter(AutocompleteAdapter adapter) {
+        actvCurrent.setAdapter(adapter);
     }
 
-    public void setIvAcceptVisible(boolean visible) {
-        if (visible) {
-            ivAccept.setVisibility(VISIBLE);
-        } else {
-            ivAccept.setVisibility(GONE);
-        }
+    public void setActvHint(String current) {
+        actvCurrent.setHint(current);
     }
+
 }

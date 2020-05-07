@@ -24,7 +24,7 @@ public class SealAdapter extends RecyclerView.Adapter<SealHolder> {
     public SealHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.rv_item, parent, false);
-        return new SealHolder(v);
+        return new SealHolder(v, mContext);
     }
 
     @Override
