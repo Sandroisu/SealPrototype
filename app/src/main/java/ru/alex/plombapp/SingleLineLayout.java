@@ -2,6 +2,7 @@ package ru.alex.plombapp;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,6 @@ public class SingleLineLayout extends ConstraintLayout {
         if (inflater != null) {
             inflater.inflate(R.layout.single_line_layout, this, true);
         }
-
         tvTitle = findViewById(R.id.singleLine_tvTitle);
         tvPrevious = findViewById(R.id.singleLine_tvPrevious);
         actvCurrent = findViewById(R.id.singleLine_actvCurrent);
@@ -43,7 +43,6 @@ public class SingleLineLayout extends ConstraintLayout {
         ivAccept = findViewById(R.id.singleLine_ivAccept);
         ivDropDown = findViewById(R.id.singleLine_ivDropDown);
         tvTitle.setText(labelText);
-
         ivDropDown.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +82,25 @@ public class SingleLineLayout extends ConstraintLayout {
 
     public void setActvHint(String current) {
         actvCurrent.setHint(current);
+    }
+
+    public void setActvTextWatcher(IMeterReadingTextWatcher textWatcher, String sealId){
+        actvCurrent.addTextChangedListener(new MeterReadingTextWatcher(textWatcher, sealId, this));
+    }
+
+    public void setClearAcceptVisibility(boolean visibility){
+        if (visibility){
+            ivAccept.setVisibility(VISIBLE);
+            ivCancel.setVisibility(VISIBLE);
+        }else {
+            ivAccept.setVisibility(GONE);
+            ivCancel.setVisibility(GONE);
+        }
+    }
+
+    public void setInputDouble(){
+        actvCurrent.setInputType(InputType.TYPE_CLASS_NUMBER);
+        setClearAcceptVisibility(false);
     }
 
 }

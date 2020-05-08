@@ -5,14 +5,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMeterReadingTextWatcher {
 
     private RecyclerView mRecyclerView;
     private List<Seal> mSealList;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         }
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new SealAdapter(this, mSealList));
+        mRecyclerView.setAdapter(new SealAdapter(mSealList, this));
 
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -39,9 +41,29 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mSealList.add(new Seal("Тип пломбы ", "", "Номер пломбы ",
                         0, "Местно установки пломбы ", ""));
-                mRecyclerView.setAdapter(new SealAdapter(MainActivity.this, mSealList));
+                mRecyclerView.setAdapter(new SealAdapter(mSealList, MainActivity.this));
             }
         });
+    }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+    }
+
+    @Override
+    public void afterMeterReadingTextChanged(String meterId, Object prevValue, Object value, SingleLineLayout sllLayout) {
+        boolean notEmpty = value!=null;
+        if (value instanceof String){
+            notEmpty = !((String) value).isEmpty();
+        }
+        sllLayout.setClearAcceptVisibility(notEmpty);
     }
 }

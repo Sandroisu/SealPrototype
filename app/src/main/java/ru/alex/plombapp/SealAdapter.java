@@ -12,19 +12,19 @@ import java.util.List;
 
 
 public class SealAdapter extends RecyclerView.Adapter<SealHolder> {
-    private Context mContext;
     private List<Seal> mSeals;
+    private IMeterReadingTextWatcher mTextWatcher;
 
-    public SealAdapter(Context context, List<Seal> seals){
-        mContext = context;
+    public SealAdapter(List<Seal> seals, IMeterReadingTextWatcher textWatcher){
         mSeals = seals;
+        mTextWatcher = textWatcher;
     }
     @NonNull
     @Override
     public SealHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
+        LayoutInflater inflater = LayoutInflater.from((Context) mTextWatcher);
         View v = inflater.inflate(R.layout.rv_item, parent, false);
-        return new SealHolder(v, mContext);
+        return new SealHolder(v, mTextWatcher);
     }
 
     @Override

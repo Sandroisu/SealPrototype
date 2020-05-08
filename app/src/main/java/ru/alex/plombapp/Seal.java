@@ -1,6 +1,9 @@
 package ru.alex.plombapp;
 
+import java.util.UUID;
+
 class Seal {
+    final String sealId;
     final String sealType;
     final String previousType;
     final String sealNumber;
@@ -15,5 +18,6 @@ class Seal {
         this.previousNumber = previousNumber;
         this.sealPlacement = sealPlacement;
         this.previousPlacement = previousPlacement;
+        sealId = String.valueOf(UUID.randomUUID());
     }
 }
